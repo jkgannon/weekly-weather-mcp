@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 import os
 
 # Create MCP server instance
-mcp = FastMCP(name="WeatherForecastServer-1.2.0")
+mcp = FastMCP("WeatherForecastServer-1.2.0")
 
 # Define data models
 class WindInfo(BaseModel):
