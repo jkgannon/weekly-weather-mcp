@@ -16,10 +16,10 @@ class WindInfo(BaseModel):
 
 class WeatherEntry(BaseModel):
     time: str = Field(..., description="Time of the weather data")
-    temperature: str = Field(..., description="Temperature in Celsius")
-    feels_like: str = Field(..., description="Feels like temperature in Celsius")
-    temp_min: str = Field(..., description="Minimum temperature in Celsius")
-    temp_max: str = Field(..., description="Maximum temperature in Celsius")
+    temperature: str = Field(..., description="Temperature in Fahrenheit")
+    feels_like: str = Field(..., description="Feels like temperature in Fahrenheit")
+    temp_min: str = Field(..., description="Minimum temperature in Fahrenheit")
+    temp_max: str = Field(..., description="Maximum temperature in Fahrenheit")
     weather_condition: str = Field(..., description="Weather condition description")
     humidity: str = Field(..., description="Humidity percentage")
     wind: WindInfo = Field(..., description="Wind speed and direction information")
