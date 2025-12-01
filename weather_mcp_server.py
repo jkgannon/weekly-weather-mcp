@@ -80,7 +80,7 @@ def get_coordinates(location, api_key):
 
         # Fallback to current weather API if geocoding fails
         print("Geocoding API failed, falling back to current weather API for coordinates")
-        fallback_url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=metric"
+        fallback_url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=imperial"
         response = requests.get(fallback_url)
         response.raise_for_status()
         data = response.json()
@@ -132,8 +132,8 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
         current = data.get('current', {})
         current_weather = {
             'time': format_timestamp(current.get('dt', 0), time_zone_offset),
-            'temperature': f"{current.get('temp', 0)} °C",
-            'feels_like': f"{current.get('feels_like', 0)} °C",
+            'temperature': f"{current.get('temp', 0)} °F",
+            'feels_like': f"{current.get('feels_like', 0)} °F",
             'temp_min': "N/A",  # One Call doesn't provide min/max in current
             'temp_max': "N/A",
             'weather_condition': current.get('weather', [{}])[0].get('description', 'Unknown'),
@@ -164,10 +164,10 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
             # Create a forecast entry for this day
             forecast_entry = {
                 'time': format_timestamp(day.get('dt', 0), time_zone_offset),
-                'temperature': f"{day.get('temp', {}).get('day', 0)} °C",
-                'feels_like': f"{day.get('feels_like', {}).get('day', 0)} °C",
-                'temp_min': f"{day.get('temp', {}).get('min', 0)} °C",
-                'temp_max': f"{day.get('temp', {}).get('max', 0)} °C",
+                'temperature': f"{day.get('temp', {}).get('day', 0)} °F",
+                'feels_like': f"{day.get('feels_like', {}).get('day', 0)} °F",
+                'temp_min': f"{day.get('temp', {}).get('min', 0)} °F",
+                'temp_max': f"{day.get('temp', {}).get('max', 0)} °F",
                 'weather_condition': day.get('weather', [{}])[0].get('description', 'Unknown'),
                 'humidity': f"{day.get('humidity', 0)}%",
                 'wind': {
@@ -190,10 +190,10 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
             morning_time = dt.replace(hour=9, minute=0, second=0)
             forecasts_by_date[date_str]['entries'].append({
                 'time': morning_time.strftime('%Y-%m-%d %H:%M:%S'),
-                'temperature': f"{day_temps.get('morn', 0)} °C",
-                'feels_like': f"{feels_like.get('morn', 0)} °C",
-                'temp_min': f"{day_temps.get('min', 0)} °C",
-                'temp_max': f"{day_temps.get('max', 0)} °C",
+                'temperature': f"{day_temps.get('morn', 0)} °F",
+                'feels_like': f"{feels_like.get('morn', 0)} °F",
+                'temp_min': f"{day_temps.get('min', 0)} °F",
+                'temp_max': f"{day_temps.get('max', 0)} °F",
                 'weather_condition': day.get('weather', [{}])[0].get('description', 'Unknown'),
                 'humidity': f"{day.get('humidity', 0)}%",
                 'wind': {
@@ -209,10 +209,10 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
             afternoon_time = dt.replace(hour=15, minute=0, second=0)
             forecasts_by_date[date_str]['entries'].append({
                 'time': afternoon_time.strftime('%Y-%m-%d %H:%M:%S'),
-                'temperature': f"{day_temps.get('day', 0)} °C",
-                'feels_like': f"{feels_like.get('day', 0)} °C",
-                'temp_min': f"{day_temps.get('min', 0)} °C",
-                'temp_max': f"{day_temps.get('max', 0)} °C",
+                'temperature': f"{day_temps.get('day', 0)} °F",
+                'feels_like': f"{feels_like.get('day', 0)} °F",
+                'temp_min': f"{day_temps.get('min', 0)} °F",
+                'temp_max': f"{day_temps.get('max', 0)} °F",
                 'weather_condition': day.get('weather', [{}])[0].get('description', 'Unknown'),
                 'humidity': f"{day.get('humidity', 0)}%",
                 'wind': {
@@ -228,10 +228,10 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
             evening_time = dt.replace(hour=20, minute=0, second=0)
             forecasts_by_date[date_str]['entries'].append({
                 'time': evening_time.strftime('%Y-%m-%d %H:%M:%S'),
-                'temperature': f"{day_temps.get('eve', 0)} °C",
-                'feels_like': f"{feels_like.get('eve', 0)} °C",
-                'temp_min': f"{day_temps.get('min', 0)} °C",
-                'temp_max': f"{day_temps.get('max', 0)} °C",
+                'temperature': f"{day_temps.get('eve', 0)} °F",
+                'feels_like': f"{feels_like.get('eve', 0)} °F",
+                'temp_min': f"{day_temps.get('min', 0)} °F",
+                'temp_max': f"{day_temps.get('max', 0)} °F",
                 'weather_condition': day.get('weather', [{}])[0].get('description', 'Unknown'),
                 'humidity': f"{day.get('humidity', 0)}%",
                 'wind': {
@@ -255,8 +255,8 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
             # Add the hourly forecast to the appropriate day
             hourly_entry = {
                 'time': format_timestamp(hour.get('dt', 0), time_zone_offset),
-                'temperature': f"{hour.get('temp', 0)} °C",
-                'feels_like': f"{hour.get('feels_like', 0)} °C",
+                'temperature': f"{hour.get('temp', 0)} °F",
+                'feels_like': f"{hour.get('feels_like', 0)} °F",
                 'temp_min': "N/A",  # Hourly doesn't have min/max
                 'temp_max': "N/A",
                 'weather_condition': hour.get('weather', [{}])[0].get('description', 'Unknown'),
