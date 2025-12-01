@@ -119,7 +119,7 @@ def get_weather_forecast(present_location, time_zone_offset, api_key=None):
         lat, lon = get_coordinates(present_location, api_key)
 
         # Call One Call API 3.0
-        onecall_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+        onecall_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={api_key}&units=imperial"
 
         response = requests.get(onecall_url)
         response.raise_for_status()
